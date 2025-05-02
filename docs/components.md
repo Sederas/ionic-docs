@@ -1,4 +1,30 @@
----
+import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { InventoryService } from '../services/inventory.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
+})
+export class HomePage {
+  bodegas = ['Bodega 1', 'Bodega 2', 'Bodega 3', 'Bodega 4'];
+
+  constructor(private navCtrl: NavController, private inventoryService: InventoryService) {}
+
+  async importarExcel(event: any, bodega: string) {
+    const file = event.target.files[0];
+    if (file) {
+      await this.inventoryService.importarExcel(file, bodega);
+    }
+  }
+
+  verBodega(bodega: string) {
+    this.navCtrl.navigateForward(`/bodega-detail/${bodega}`);
+  }
+
+  // ... (lógica para mostrar alertas globales)
+}---
 title: UI Components
 hide_table_of_contents: true
 ---
